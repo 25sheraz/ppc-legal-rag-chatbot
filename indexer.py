@@ -17,6 +17,7 @@ load_dotenv()
 
 INDEX_DIR = os.path.join(os.path.dirname(__file__), "vector_store")
 EMBEDDINGS_FILE = os.path.join(INDEX_DIR, "embeddings.npy")
+METADATA_FILE = os.path.join(INDEX_DIR, "metadata.json")
 client = None
 
 def get_openai_client():
