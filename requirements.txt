@@ -1,0 +1,8 @@
+openai>=1.0.0
+pymupdf>=1.26.0
+rapidocr-onnxruntime>=1.2.0
+langchain-text-splitters>=0.0.1
+numpy>=1.24.0
+python-dotenv>=1.0.0
+flask>=3.0.0
+pillow>=10.0.0
