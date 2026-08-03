@@ -6,12 +6,21 @@ from indexer import build_index
 
 app = Flask(__name__)
 
-store = VectorStore()
-if not store.is_indexed():
-    print("[*] Vector store missing. Building index from PDF books...")
-    build_index()
+rag_chain = None
 
-rag = RAGChain(model_name="gpt-4o-mini", top_k=5)
+def get_rag():
+    global rag_chain
+    if rag_chain is None:
+        store = VectorStore()
+        if not store.is_indexed():
+            print("[*] Vector store missing. Building index...")
+            try:
+                from indexer import build_index
+                build_index()
+            except Exception as e:
+                print(f"[!] Unable to build index: {e}")
+        rag_chain = RAGChain(model_name="gpt-4o-mini", top_k=5)
+    return rag_chain
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -402,6 +411,7 @@ def chat_api():
         if not question:
             return jsonify({"error": "Empty question"}), 400
 
+        rag = get_rag()
         result = rag.ask(question, stream=False)
         return jsonify(result)
     except Exception as e:

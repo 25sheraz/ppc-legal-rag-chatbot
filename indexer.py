@@ -17,13 +17,17 @@ load_dotenv()
 
 INDEX_DIR = os.path.join(os.path.dirname(__file__), "vector_store")
 EMBEDDINGS_FILE = os.path.join(INDEX_DIR, "embeddings.npy")
-METADATA_FILE = os.path.join(INDEX_DIR, "metadata.json")
+client = None
 
-api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    raise ValueError("OPENAI_API_KEY environment variable not set in .env file.")
-
-client = OpenAI(api_key=api_key)
+def get_openai_client():
+    global client
+    if client is None:
+        load_dotenv(override=True)
+        api_key = (os.getenv("OPENAI_API_KEY") or "").strip(' "\'')
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY environment variable missing.")
+        client = OpenAI(api_key=api_key)
+    return client
 
 def ocr_page_image(page, dpi=150):
     """Fallback OCR for scanned PDF pages using PyMuPDF pixmap & RapidOCR"""
