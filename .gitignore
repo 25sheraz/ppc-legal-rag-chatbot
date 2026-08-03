@@ -1,0 +1,20 @@
+# Secrets & API Keys
+.env
+*.env
+
+# Python Cache & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Vector Store Cache (Optional: commit if small, ignore if large)
+# vector_store/embeddings.npy
+
+# OS & IDE Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
