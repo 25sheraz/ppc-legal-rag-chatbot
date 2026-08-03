@@ -396,13 +396,17 @@ def index():
 
 @app.route("/api/chat", methods=["POST"])
 def chat_api():
-    data = request.get_json() or {}
-    question = data.get("question", "")
-    if not question:
-        return jsonify({"error": "Empty question"}), 400
+    try:
+        data = request.get_json() or {}
+        question = data.get("question", "")
+        if not question:
+            return jsonify({"error": "Empty question"}), 400
 
-    result = rag.ask(question, stream=False)
-    return jsonify(result)
+        result = rag.ask(question, stream=False)
+        return jsonify(result)
+    except Exception as e:
+        print(f"[!] Error handling chat API: {e}")
+        return jsonify({"error": str(e), "answer": f"Server Error: {str(e)}"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

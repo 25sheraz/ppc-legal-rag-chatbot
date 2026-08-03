@@ -3,7 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from vector_store import VectorStore
 
-load_dotenv()
+load_dotenv(override=True)
 
 SYSTEM_PROMPT = """You are an expert AI Legal Advisor specializing in the Pakistan Penal Code (PPC 1860) and Pakistani Criminal Law.
 
@@ -31,7 +31,8 @@ STRICT RESPONSIBLE CONDUCT RULES:
 
 class RAGChain:
     def __init__(self, model_name="gpt-4o-mini", top_k=5):
-        api_key = os.getenv("OPENAI_API_KEY")
+        load_dotenv(override=True)
+        api_key = (os.getenv("OPENAI_API_KEY") or "").strip(' "\'')
         if not api_key:
             raise ValueError("OPENAI_API_KEY environment variable missing.")
 
