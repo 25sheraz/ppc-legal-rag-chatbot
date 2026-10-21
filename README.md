@@ -1,5 +1,7 @@
 # ⚖️ Pakistan Penal Code (PPC 1860) AI Legal RAG Chatbot
 
+![Pakistan Penal Code Legal RAG Assistant: ask about the PPC and get answers with section citations](docs/cover.jpg)
+
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-green.svg)
 ![Embeddings](https://img.shields.io/badge/Embeddings-text--embedding--3--small-orange.svg)
